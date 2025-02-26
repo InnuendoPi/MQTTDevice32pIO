@@ -3,7 +3,7 @@
 
 void handleRoot()
 {
-  server.sendHeader(PSTR("Content-Encoding"), "gzip");
+  server.sendHeader("Content-Encoding", "gzip");
   server.send_P(200, "text/html", index_htm_gz, index_htm_gz_len);
 }
 

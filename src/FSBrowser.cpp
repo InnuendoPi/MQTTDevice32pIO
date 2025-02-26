@@ -8,33 +8,33 @@ String unsupportedFiles = String();
 
 void replyOK()
 {
-  server.send(200, FPSTR("text/plain"), "");
+  server.send(200);
 }
 void replyResponse(const char *msg)
 {
-  server.send(200, FPSTR("application/json"), msg);
+  server.send(200, "application/json", msg);
 }
 void replyOKWithMsg(String msg)
 {
-  server.send(200, FPSTR("text/plain"), msg);
+  server.send(200, "text/plain", msg);
 }
 void replyReboot(const char *msg)
 {
-  server.send(205, FPSTR("text/plain"), msg);
+  server.send(205, "text/plain", msg);
 }
 void replyNotFound(String msg)
 {
-  server.send(404, FPSTR("text/plain"), msg);
+  server.send(404, "text/plain", msg);
 }
 
 void replyBadRequest(String msg)
 {
-  server.send(400, FPSTR("text/plain"), msg + "\r\n");
+  server.send(400, "text/plain", msg + "\r\n");
 }
 
 void replyServerError(String msg)
 {
-  server.send(500, FPSTR("text/plain"), msg + "\r\n");
+  server.send(500, "text/plain", msg + "\r\n");
 }
 
 String getContentType(const String &filename)
@@ -108,7 +108,7 @@ void handleStatus()
   String json;
   json.reserve(128);
   json = "{\"type\":\"Filesystem\", \"isOk\":";
-  json += PSTR("\"true\", \"totalBytes\":\"");
+  json += "\"true\", \"totalBytes\":\"";
 #ifdef ESP32
   json += LittleFS.totalBytes();
 #elif ESP8266
@@ -116,14 +116,14 @@ void handleStatus()
   LittleFS.info(fs_info);
   json += fs_info.totalBytes;
 #endif
-  json += PSTR("\", \"usedBytes\":\"");
+  json += "\", \"usedBytes\":\"";
 #ifdef ESP32
   json += LittleFS.usedBytes();
 #elif ESP8266
   json += fs_info.usedBytes;
 #endif
   json += "\"";
-  json += PSTR(",\"unsupportedFiles\":\"\"}");
+  json += ",\"unsupportedFiles\":\"\"}";
   server.send(200, "application/json", json);
 }
 
@@ -371,7 +371,7 @@ void handleFileDelete()
     return replyBadRequest("BAD PATH");
 
   if (!LittleFS.exists(path))
-    return replyNotFound(FPSTR("FileNotFound"));
+    return replyNotFound("FileNotFound");
   deleteRecursive(path);
   replyOKWithMsg(lastExistingParent(path));
 }
@@ -410,6 +410,6 @@ void handleFileUpload()
 
 void handleGetEdit()
 {
-  server.sendHeader(PSTR("Content-Encoding"), "gzip");
+  server.sendHeader("Content-Encoding", "gzip");
   server.send_P(200, "text/html", edit_htm_gz, edit_htm_gz_len);
 }

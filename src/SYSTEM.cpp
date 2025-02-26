@@ -407,7 +407,7 @@ void EM_REBOOT() // Reboot ESP
   }
   server.sendHeader("Location", "/", true);
   replyReboot("reboot");
-  // server.send(205, FPSTR("text/plain"), "reboot");
+  // server.send(205, "text/plain", "reboot");
   LittleFS.end(); // unmount LittleFS
   ESP.restart();
 }

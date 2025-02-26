@@ -120,7 +120,7 @@ void SSEKeepAlive()
             // subscription[i].client.println("data: { \"TYPE\":\"KEEP-ALIVE\" }\n"); // Extra newline required by SSE standard
             // String alive = "event: alive\ndata: { \"type\":\"keep alive\", \"ip\":\"" + IPtoString(subscription[i].clientIP) + "\", \"channel\":\"" + i + "\"}\n";
             char alive[100];
-            snprintf(alive, sizeof(alive), PSTR("event: alive\ndata: { \"type\":\"keep alive\", \"ip\":\"%s\", \"channel\":\"\"}\n"), subscription[i].clientIP.toString().c_str(), i);
+            snprintf(alive, sizeof(alive), "event: alive\ndata: { \"type\":\"keep alive\", \"ip\":\"%s\", \"channel\":\"\"}\n", subscription[i].clientIP.toString().c_str(), i);
             subscription[i].client.println(alive);
         }
         else
@@ -166,7 +166,7 @@ void SSEHandler(const uint8_t &channel)
     s.client = client; // capture SSE server client connection
 
     server.setContentLength(CONTENT_LENGTH_UNKNOWN); // the payload can go on forever
-    server.sendContent_P(PSTR("HTTP/1.1 200 OK\nContent-Type: text/event-stream\nConnection: keep-alive\nCache-Control: no-cache\nAccess-Control-Allow-Origin: *\n\n"));
+    server.sendContent("HTTP/1.1 200 OK\nContent-Type: text/event-stream\nConnection: keep-alive\nCache-Control: no-cache\nAccess-Control-Allow-Origin: *\n\n");
     s.keepAliveTimer.attach(15.0, SSEKeepAlive); // Refresh time every 30s - WebUpdate benötigt bei langsamer Leitung über 60s
     initialSSE(channel);
 }
@@ -185,19 +185,19 @@ void SSEBroadcastJson(const char *jsonValue, uint8_t typ)
             char response[strlen(jsonValue) + 60];
             if (typ == SENSORJSON) // 0: sensors
             {
-                snprintf(response, sizeof(response), PSTR("event: sensors\ndata: %s\nid: %lu\nretry: 5000\n\n"), jsonValue, millis());
+                snprintf(response, sizeof(response), "event: sensors\ndata: %s\nid: %lu\n\n", jsonValue, millis());
             }
             else if (typ == ACTORJSON) // 1: actors
             {
-                snprintf(response, sizeof(response), PSTR("event: actors\ndata: %s\nid: %lu\nretry: 5000\n\n"), jsonValue, millis());
+                snprintf(response, sizeof(response), "event: actors\ndata: %s\nid: %lu\n\n", jsonValue, millis());
             }
             else if (typ == INDJSON) // 2: induction
             {
-                snprintf(response, sizeof(response), PSTR("event: ids\ndata: %s\nid: %lu\nretry: 5000\n\n"), jsonValue, millis());
+                snprintf(response, sizeof(response), "event: ids\ndata: %s\nid: %lu\n\n", jsonValue, millis());
             }
             else if (typ == MISCJSON) // 3: misc System
             {
-                snprintf(response, sizeof(response), PSTR("event: misc\ndata: %s\nid: %lu\nretry: 5000\n\n"), jsonValue, millis());
+                snprintf(response, sizeof(response), "event: misc\ndata: %s\nid: %lu\n\n", jsonValue, millis());
             }
             else
             {
@@ -239,7 +239,7 @@ void handleNotFound()
 void handleAll()
 {
     const char *uri = server.uri().c_str();
-    const char *restEvents = PSTR("/rest/events/");
+    const char *restEvents = "/rest/events/";
     if (strncmp_P(uri, restEvents, strlen_P(restEvents)))
     {
         return handleNotFound();
@@ -270,6 +270,6 @@ void initialSSE(const uint8_t &val)
 {
     // String alive = "event: alive\ndata: { \"type\":\"new SSE\", \"ip\":\"" + subscription[val].clientIP.toString() + "\", \"channel\":\"" + val + "\"}\n";
     char alive[100];
-    snprintf(alive, sizeof(alive), PSTR("event: alive\ndata: {\"type\":\"new SSE\",\"ip\":\"%s\",\"channel\":\"%d\"}\n"), subscription[val].clientIP.toString().c_str(), val);
+    snprintf(alive, sizeof(alive), "event: alive\ndata: {\"type\":\"new SSE\",\"ip\":\"%s\",\"channel\":\"%d\"}\n", subscription[val].clientIP.toString().c_str(), val);
     subscription[val].client.println(alive);
 }
