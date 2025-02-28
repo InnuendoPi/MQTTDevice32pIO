@@ -1,6 +1,4 @@
-# MQTTDevice32pIO
-
-[![ESP32](https://img.shields.io/static/v1?label=Arduino&message=ESP32%20&#8594;&logo=arduino&logoColor=white&color=blue)](https://github.com/InnuendoPi/MQTTDevice32)
+# MQTTDevice32
 
 MQTTDevice32 ist ein Arduino Sketch für den Wemos ESP8266 D1 mini und den ESP32 D1 mini. Mit dem MQTTDevice32pIO können Sensoren, Aktoren und das Induktionskochfeld GGM IDS2 per WLAN über einen MQTTBroker (bspw. mosquitto) mit [CraftBeerPi V4](https://github.com/PiBrewing/craftbeerpi4) verbunden werden.
 

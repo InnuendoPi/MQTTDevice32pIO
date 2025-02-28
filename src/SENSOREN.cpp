@@ -391,8 +391,8 @@ void handleDelSensor()
     numberOfSensors--;
   else
     numberOfSensors = 0;
-  saveConfig();
   server.send(200);
+  saveConfig();
   handleSensors(true);
   TickerSen.setLastTime(millis());
 }
