@@ -38,9 +38,9 @@
 
 // Version
 #ifdef ESP_IDF5
-#define Version "4.70 pIO"
+#define Version "4.71 pIO"
 #else
-#define Version "4.70"
+#define Version "4.71"
 #endif
 
 // Watchdog
@@ -324,14 +324,15 @@ extern File fsUploadFile; // a File object to temporarily store the received fil
 #define CS2 D17
 #define CS3 D18
 #define CS4 D19
-#define CS5 D8
+// #define CS5 D8 // Fehler -> def. PIN_BUZZER Platine
 extern Adafruit_MAX31865 pt_0;
 extern Adafruit_MAX31865 pt_1;
 extern Adafruit_MAX31865 pt_2;
 extern Adafruit_MAX31865 pt_3;
 extern Adafruit_MAX31865 pt_4;
-extern Adafruit_MAX31865 pt_5;
-extern bool activePT_0, activePT_1, activePT_2, activePT_3, activePT_4, activePT_5;
+// extern Adafruit_MAX31865 pt_5;
+// extern bool activePT_0, activePT_1, activePT_2, activePT_3, activePT_4, activePT_5;
+extern bool activePT_0, activePT_1, activePT_2, activePT_3, activePT_4;
 #elif ESP8266
 #define SPI_MOSI D0
 #define SPI_MISO D1

@@ -49,8 +49,8 @@ void TemperatureSensor::Update()
       sens_value = pt_3.temperature(RNOMINAL100, RREF100);
     else if (sens_ptid == 4)
       sens_value = pt_4.temperature(RNOMINAL100, RREF100);
-    else if (sens_ptid == 5)
-      sens_value = pt_5.temperature(RNOMINAL100, RREF100);
+    // else if (sens_ptid == 5)
+      // sens_value = pt_5.temperature(RNOMINAL100, RREF100);
 #endif
 
     if (sens_value > 120.0 || sens_value < -100.0) // außerhalb realistischer Messbereich
@@ -80,8 +80,8 @@ void TemperatureSensor::Update()
       sens_value = pt_3.temperature(RNOMINAL1000, RREF1000);
     else if (sens_ptid == 4)
       sens_value = pt_4.temperature(RNOMINAL1000, RREF1000);
-    else if (sens_ptid == 5)
-      sens_value = pt_5.temperature(RNOMINAL1000, RREF1000);
+    // else if (sens_ptid == 5)
+    //   sens_value = pt_5.temperature(RNOMINAL1000, RREF1000);
 #endif
     if (sens_value > 120.0 || sens_value < -100.0) // außerhalb realistischer Messbereich
     {
@@ -517,11 +517,11 @@ void setupPT()
           activePT_4 = pt_4.begin(MAX31865_2WIRE);
           sensors[i].setSensPTid(4);
         }
-        else if (!activePT_5)
-        {
-          activePT_5 = pt_5.begin(MAX31865_2WIRE);
-          sensors[i].setSensPTid(5);
-        }
+        // else if (!activePT_5)
+        // {
+        //   activePT_5 = pt_5.begin(MAX31865_2WIRE);
+        //   sensors[i].setSensPTid(5);
+        // }
 #endif
         break;
       case 1: // 3-cable
@@ -551,11 +551,11 @@ void setupPT()
           activePT_4 = pt_4.begin(MAX31865_3WIRE);
           sensors[i].setSensPTid(4);
         }
-        else if (!activePT_5)
-        {
-          activePT_5 = pt_5.begin(MAX31865_3WIRE);
-          sensors[i].setSensPTid(5);
-        }
+        // else if (!activePT_5)
+        // {
+        //   activePT_5 = pt_5.begin(MAX31865_3WIRE);
+        //   sensors[i].setSensPTid(5);
+        // }
 #endif
         break;
       case 2: // 4-cable
@@ -585,11 +585,11 @@ void setupPT()
           activePT_4 = pt_4.begin(MAX31865_4WIRE);
           sensors[i].setSensPTid(4);
         }
-        else if (!activePT_5)
-        {
-          activePT_5 = pt_5.begin(MAX31865_4WIRE);
-          sensors[i].setSensPTid(5);
-        }
+        // else if (!activePT_5)
+        // {
+        //   activePT_5 = pt_5.begin(MAX31865_4WIRE);
+        //   sensors[i].setSensPTid(5);
+        // }
 #endif
         break;
       }
@@ -599,8 +599,8 @@ void setupPT()
     pins_used[CS2] = activePT_2;
 #ifdef ESP32
     pins_used[CS3] = activePT_3;
-    pins_used[CS3] = activePT_4;
-    pins_used[CS5] = activePT_5;
+    pins_used[CS4] = activePT_4;
+    // pins_used[CS5] = activePT_5;
 #endif
   }
 }

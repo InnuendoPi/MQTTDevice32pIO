@@ -89,8 +89,9 @@ Adafruit_MAX31865 pt_1 = Adafruit_MAX31865(CS1, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_2 = Adafruit_MAX31865(CS2, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_3 = Adafruit_MAX31865(CS3, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_4 = Adafruit_MAX31865(CS4, SPI_MOSI, SPI_MISO, SPI_CLK);
-Adafruit_MAX31865 pt_5 = Adafruit_MAX31865(CS5, SPI_MOSI, SPI_MISO, SPI_CLK);
-bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false, activePT_5 = false;
+// Adafruit_MAX31865 pt_5 = Adafruit_MAX31865(CS5, SPI_MOSI, SPI_MISO, SPI_CLK);
+// bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false, activePT_5 = false;
+bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false;
 #elif ESP8266
 Adafruit_MAX31865 pt_0 = Adafruit_MAX31865(CS0, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_1 = Adafruit_MAX31865(CS1, SPI_MOSI, SPI_MISO, SPI_CLK);
