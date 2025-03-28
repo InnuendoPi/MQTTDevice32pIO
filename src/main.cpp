@@ -413,13 +413,14 @@ void setupServer()
   server.on("/rest/events/4", handleAll);
   server.on("/rest/events/5", handleAll);
 
-  // server.serveStatic("/mqttdevice.min.css", LittleFS, "/mqttdevice.min.css", "public, max-age=86400");
-  // server.serveStatic("/mqttdevice.min.js", LittleFS, "/mqttdevice.min.js", "public, max-age=86400");
-  // server.serveStatic("/mqttfont.ttf", LittleFS, "/mqttfont.ttf", "public, max-age=86400");
+  server.serveStatic("/mqttdevice.min.css", LittleFS, "/mqttdevice.min.css", "public, max-age=86400");
+  server.serveStatic("/mqttdevice.min.js", LittleFS, "/mqttdevice.min.js", "public, max-age=86400");
+  server.serveStatic("/mqttfont.ttf", LittleFS, "/mqttfont.ttf", "public, max-age=86400");
   server.serveStatic("/lang.js", LittleFS, "/lang.js", "public, max-age=86400");
   server.serveStatic("/favicon.ico", LittleFS, "/favicon.ico", "public, max-age=86400");
   server.serveStatic("/de.json", LittleFS, "/de.json", "no-store, must-revalidate");
   server.serveStatic("/en.json", LittleFS, "/en.json", "no-store, must-revalidate");
+  server.serveStatic("/no.json", LittleFS, "/no.json", "no-store, must-revalidate");
   server.serveStatic("/config.txt", LittleFS, "/config.txt", "no-cache, no-store, must-revalidate");
   server.serveStatic("/log_cfg.json", LittleFS, "/log_cfg.json", "no-cache, no-store, must-revalidate");
 

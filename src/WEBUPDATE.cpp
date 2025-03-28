@@ -177,24 +177,26 @@ void updateTools()
     if (LittleFS.exists(DEVBRANCH))
     {
         String upPath = "https://raw.githubusercontent.com/InnuendoPi/MQTTDevice32pIO/development/data/";
-        test = upTools(upPath, "brautomat.min.css.gz", clientup);
-        test = upTools(upPath, "brautomat.min.js.gz", clientup);
-        test = upTools(upPath, "brautomat.ttf.gz", clientup);
+        test = upTools(upPath, "mqttdevice.min.css", clientup);
+        test = upTools(upPath, "mqttdevice.min.js", clientup);
+        test = upTools(upPath, "mqttdevice.ttf", clientup);
         test = upTools(upPath, "favicon.ico", clientup);
         test = upTools(upPath, "lang.js", clientup);
-        test = upTools(upPath, "language/de.json", clientup);
-        test = upTools(upPath, "language/en.json", clientup);
+        test = upTools(upPath, "de.json", clientup);
+        test = upTools(upPath, "en.json", clientup);
+        test = upTools(upPath, "no.json", clientup);
     }
     else
     {
         String upPath = "https://raw.githubusercontent.com/InnuendoPi/MQTTDevice32pIO/main/data/";
-        test = upTools(upPath, "brautomat.min.css.gz", clientup);
-        test = upTools(upPath, "brautomat.min.js.gz", clientup);
-        test = upTools(upPath, "brautomat.ttf.gz", clientup);
+        test = upTools(upPath, "mqttdevice.min.css", clientup);
+        test = upTools(upPath, "mqttdevice.min.js", clientup);
+        test = upTools(upPath, "mqttdevice.ttf", clientup);
         test = upTools(upPath, "favicon.ico", clientup);
         test = upTools(upPath, "lang.js", clientup);
-        test = upTools(upPath, "language/de.json", clientup);
-        test = upTools(upPath, "language/en.json", clientup);
+        test = upTools(upPath, "de.json", clientup);
+        test = upTools(upPath, "en.json", clientup);
+        test = upTools(upPath, "no.json", clientup);
     }
 
     LittleFS.remove(UPDATETOOLS);
