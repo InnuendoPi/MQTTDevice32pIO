@@ -44,14 +44,6 @@ void TemperatureSensor::Update()
       sens_value = pt_1.temperature(RNOMINAL100, RREF100);
     else if (sens_ptid == 2)
       sens_value = pt_2.temperature(RNOMINAL100, RREF100);
-#ifdef ESP32
-    else if (sens_ptid == 3)
-      sens_value = pt_3.temperature(RNOMINAL100, RREF100);
-    else if (sens_ptid == 4)
-      sens_value = pt_4.temperature(RNOMINAL100, RREF100);
-    // else if (sens_ptid == 5)
-      // sens_value = pt_5.temperature(RNOMINAL100, RREF100);
-#endif
 
     if (sens_value > 120.0 || sens_value < -100.0) // außerhalb realistischer Messbereich
     {
@@ -75,14 +67,7 @@ void TemperatureSensor::Update()
       sens_value = pt_1.temperature(RNOMINAL1000, RREF1000);
     else if (sens_ptid == 2)
       sens_value = pt_2.temperature(RNOMINAL1000, RREF1000);
-#ifdef ESP32
-    else if (sens_ptid == 3)
-      sens_value = pt_3.temperature(RNOMINAL1000, RREF1000);
-    else if (sens_ptid == 4)
-      sens_value = pt_4.temperature(RNOMINAL1000, RREF1000);
-    // else if (sens_ptid == 5)
-    //   sens_value = pt_5.temperature(RNOMINAL1000, RREF1000);
-#endif
+
     if (sens_value > 120.0 || sens_value < -100.0) // außerhalb realistischer Messbereich
     {
       sensorsStatus = EM_SENER;
@@ -270,7 +255,7 @@ uint8_t TemperatureSensor::getSensType()
 }
 void TemperatureSensor::setSensType(const uint8_t &val)
 {
-  sens_type = val;
+  sens_type = constrain(val, 0, 2);
 }
 uint8_t TemperatureSensor::getSensPin()
 {
@@ -319,7 +304,7 @@ void handleSensors(bool checkSen)
   }
 }
 
-String SensorAddressToString(unsigned char deviceAddress[8])
+String SensorAddressToString(uint8_t deviceAddress[8])
 {
   String addressString = "";
   for (size_t i = 0; i < 8; i++)
@@ -428,7 +413,6 @@ void handleRequestSensors()
   JsonDocument doc;
   if (id == -1) // fetch all sensors
   {
-    // JsonArray sensorsArray = doc.to<JsonArray>();
     for (uint8_t i = 0; i < numberOfSensors; i++)
     {
       JsonObject sensorsObj = doc.add<JsonObject>();
@@ -452,7 +436,6 @@ void handleRequestSensors()
 
       sensorsObj["script"] = sensors[i].getSensorTopic();
       sensorsObj["cbpiid"] = sensors[i].getId();
-      sensorsObj["type"] = sensors[i].getSensType();
       sensorsObj["pin"] = sensors[i].getSensPin();
       yield();
     }
@@ -482,7 +465,6 @@ void setupPT()
   pins_used[SPI_MOSI] = true; // MAX31865
   pins_used[SPI_MISO] = true; // MAX31865
   pins_used[SPI_CLK] = true;  // MAX31865
-                              // pins_used[CS0] = true;      // MAX31865
 
   for (uint8_t i = 0; i < numberOfSensors; i++)
   {
@@ -506,23 +488,6 @@ void setupPT()
           activePT_2 = pt_2.begin(MAX31865_2WIRE);
           sensors[i].setSensPTid(2);
         }
-#ifdef ESP32
-        else if (!activePT_3)
-        {
-          activePT_3 = pt_3.begin(MAX31865_2WIRE);
-          sensors[i].setSensPTid(3);
-        }
-        else if (!activePT_4)
-        {
-          activePT_4 = pt_4.begin(MAX31865_2WIRE);
-          sensors[i].setSensPTid(4);
-        }
-        // else if (!activePT_5)
-        // {
-        //   activePT_5 = pt_5.begin(MAX31865_2WIRE);
-        //   sensors[i].setSensPTid(5);
-        // }
-#endif
         break;
       case 1: // 3-cable
         if (!activePT_0)
@@ -540,23 +505,6 @@ void setupPT()
           activePT_2 = pt_2.begin(MAX31865_3WIRE);
           sensors[i].setSensPTid(2);
         }
-#ifdef ESP32
-        else if (!activePT_3)
-        {
-          activePT_3 = pt_3.begin(MAX31865_3WIRE);
-          sensors[i].setSensPTid(3);
-        }
-        else if (!activePT_4)
-        {
-          activePT_4 = pt_4.begin(MAX31865_3WIRE);
-          sensors[i].setSensPTid(4);
-        }
-        // else if (!activePT_5)
-        // {
-        //   activePT_5 = pt_5.begin(MAX31865_3WIRE);
-        //   sensors[i].setSensPTid(5);
-        // }
-#endif
         break;
       case 2: // 4-cable
         if (!activePT_0)
@@ -574,34 +522,12 @@ void setupPT()
           activePT_2 = pt_2.begin(MAX31865_4WIRE);
           sensors[i].setSensPTid(2);
         }
-#ifdef ESP32
-        else if (!activePT_3)
-        {
-          activePT_3 = pt_3.begin(MAX31865_4WIRE);
-          sensors[i].setSensPTid(3);
-        }
-        else if (!activePT_4)
-        {
-          activePT_4 = pt_4.begin(MAX31865_4WIRE);
-          sensors[i].setSensPTid(4);
-        }
-        // else if (!activePT_5)
-        // {
-        //   activePT_5 = pt_5.begin(MAX31865_4WIRE);
-        //   sensors[i].setSensPTid(5);
-        // }
-#endif
         break;
       }
     }
     pins_used[CS0] = activePT_0;
     pins_used[CS1] = activePT_1;
     pins_used[CS2] = activePT_2;
-#ifdef ESP32
-    pins_used[CS3] = activePT_3;
-    pins_used[CS4] = activePT_4;
-    // pins_used[CS5] = activePT_5;
-#endif
   }
 }
 

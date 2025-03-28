@@ -18,7 +18,7 @@ private:
   float old_value = 0.0;         // Aktueller Wert
   String sens_name;              // Name für Anzeige auf Website
   char sens_mqtttopic[50];       // Für MQTT Kommunikation
-  unsigned char sens_address[8]; // 1-Wire Adresse
+  uint8_t sens_address[8]; // 1-Wire Adresse
   String sens_id;
   char buf[8];
   uint8_t sens_type = 0; // 0 := DS18B20, 1 := PT100, 2 := PT1000
@@ -56,7 +56,7 @@ public:
 
 void handleSensors(bool checkSen);                          
 uint8_t searchSensors();                                    
-String SensorAddressToString(unsigned char addr[8]);        
+String SensorAddressToString(uint8_t addr[8]);
 void handleSetSensor();                                     
 void handleDelSensor();                                     
 void handleRequestSensorAddresses();                        

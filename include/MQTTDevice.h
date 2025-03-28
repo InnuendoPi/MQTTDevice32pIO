@@ -4,6 +4,9 @@
 #include <Arduino.h>
 #include <OneWire.h>           // OneWire Bus Kommunikation
 #include <DallasTemperature.h> // Vereinfachte Benutzung der DS18B20 Sensoren
+// #include <Adafruit_SPIDevice.h> // Test
+// #include "Adafruit_SPIDevice.h"
+// #include "Adafruit_MAX31865.h"
 #include <Adafruit_MAX31865.h>
 #ifdef ESP32
 #include <WiFi.h>             // Generelle WiFi Funktionalität
@@ -34,13 +37,14 @@
 #include <SoftwareSerial.h> // Serieller Port für Display
 #include "InnuTicker.h"     // Bibliothek für Hintergrund Aufgaben (Tasks)
 #include "InnuNextion.h"
+
 // #include "index_htm.h"
 
 // Version
 #ifdef ESP_IDF5
-#define Version "4.71 pIO"
+#define Version "4.71.2 pIO"
 #else
-#define Version "4.71"
+#define Version "4.71.2"
 #endif
 
 // Watchdog
@@ -110,6 +114,10 @@
 #define DEVBRANCH "/dev.txt"
 #define CONFIG "/config.txt"
 #define LOG_CFG "/log_cfg.json"
+
+#ifdef RGB_BUILTIN
+#undef RGB_BUILTIN
+#endif
 
 #ifdef ESP32
 #define Aus -100
@@ -236,9 +244,6 @@ struct InnuLogTag
 };
 
 extern struct InnuLogTag InnuTagLevel[LOGS_COUNT];
-// #ifdef ESP8266
-// extern const char *IRAM_ATTR pathToFileName(const char *path);
-// #endif
 
 #define DEBUG_ERROR(TAG, ...)                                                                                               \
     if (getTagLevel(TAG) >= INNU_ERROR)                                                                                     \
@@ -321,18 +326,12 @@ extern File fsUploadFile; // a File object to temporarily store the received fil
 #define SPI_CLK D9
 #define CS0 D13
 #define CS1 D16
-#define CS2 D17
-#define CS3 D18
-#define CS4 D19
-// #define CS5 D8 // Fehler -> def. PIN_BUZZER Platine
+#define CS2 D18
+
 extern Adafruit_MAX31865 pt_0;
 extern Adafruit_MAX31865 pt_1;
 extern Adafruit_MAX31865 pt_2;
-extern Adafruit_MAX31865 pt_3;
-extern Adafruit_MAX31865 pt_4;
-// extern Adafruit_MAX31865 pt_5;
-// extern bool activePT_0, activePT_1, activePT_2, activePT_3, activePT_4, activePT_5;
-extern bool activePT_0, activePT_1, activePT_2, activePT_3, activePT_4;
+extern bool activePT_0, activePT_1, activePT_2;
 #elif ESP8266
 #define SPI_MOSI D0
 #define SPI_MISO D1

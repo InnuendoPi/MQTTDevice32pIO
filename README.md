@@ -15,7 +15,7 @@ MQTTDevice32 ist ein Arduino Sketch für den Wemos ESP8266 D1 mini und den ESP32
   * PT100 und PT1000 Sensoren
     * MAX31865 Amplifyer
   * MQTTDevice32 unterstützt bis zu 6 Sensoren
-  * MQTTDevice4 supports unterstützt bis zu 3 Sensoren
+  * MQTTDevice4 unterstützt bis zu 3 analoge Sensoren (PT100x)
 * Aktoren
   * GPIO Auswahl
   * belegte GPIOs werden in der Auswahl ausgeblendet
@@ -86,12 +86,12 @@ ESP32 D1 mini
 | D10        | GPIO025 | ok     | ok     | MISO                                          |
 | D11        | GPIO032 | ok     | ok     | MOSI                                          |
 | D12        | GPIO012 | (ok)   | ok     | TDI, boot fails if pulled high, strapping pin |
-| D13        | GPIO004 | ok     | ok     | CS0                                           |
+| D13        | GPIO004 | ok     | ok     |                                               |
 | D14        | GPIO000 | pullUp | (ok)   | must be low to enter flash mode               |
 | D15        | GPIO002 | ok     | ok     | onboard LED, must be low to enter flash mode  |
-| D16        | GPIO033 | ok     | ok     | CS1                                           |
-| D17        | GPIO014 | ok     | ok     | CS2                                           |
-| D18        | GPIO015 | ok     | ok     |                                               |
+| D16        | GPIO033 | ok     | ok     | CS0                                           |
+| D17        | GPIO014 | ok     | ok     | CS1                                           |
+| D18        | GPIO015 | ok     | ok     | CS2                                           |
 | D19        | GPIO013 | ok     | ok     |                                               |
 ||||||
 

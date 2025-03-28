@@ -83,21 +83,23 @@ const int8_t pins[NUMBEROFPINS] = {D0, D1, D2, D3, D4, D5, D6, D7, D8, -100};
 const String pin_names[NUMBEROFPINS] = {"D0", "D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "-"};
 #endif
 
-#ifdef ESP32
+// #ifdef ESP32
+// Use software SPI: CS, DI, DO, CLK
 Adafruit_MAX31865 pt_0 = Adafruit_MAX31865(CS0, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_1 = Adafruit_MAX31865(CS1, SPI_MOSI, SPI_MISO, SPI_CLK);
 Adafruit_MAX31865 pt_2 = Adafruit_MAX31865(CS2, SPI_MOSI, SPI_MISO, SPI_CLK);
-Adafruit_MAX31865 pt_3 = Adafruit_MAX31865(CS3, SPI_MOSI, SPI_MISO, SPI_CLK);
-Adafruit_MAX31865 pt_4 = Adafruit_MAX31865(CS4, SPI_MOSI, SPI_MISO, SPI_CLK);
+// Adafruit_MAX31865 pt_3 = Adafruit_MAX31865(CS3, SPI_MOSI, SPI_MISO, SPI_CLK);
+// Adafruit_MAX31865 pt_4 = Adafruit_MAX31865(CS4, SPI_MOSI, SPI_MISO, SPI_CLK);
 // Adafruit_MAX31865 pt_5 = Adafruit_MAX31865(CS5, SPI_MOSI, SPI_MISO, SPI_CLK);
 // bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false, activePT_5 = false;
-bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false;
-#elif ESP8266
-Adafruit_MAX31865 pt_0 = Adafruit_MAX31865(CS0, SPI_MOSI, SPI_MISO, SPI_CLK);
-Adafruit_MAX31865 pt_1 = Adafruit_MAX31865(CS1, SPI_MOSI, SPI_MISO, SPI_CLK);
-Adafruit_MAX31865 pt_2 = Adafruit_MAX31865(CS2, SPI_MOSI, SPI_MISO, SPI_CLK);
+// bool activePT_0 = false, activePT_1 = false, activePT_2 = false, activePT_3 = false, activePT_4 = false;
 bool activePT_0 = false, activePT_1 = false, activePT_2 = false;
-#endif
+// #elif ESP8266
+// Adafruit_MAX31865 pt_0 = Adafruit_MAX31865(CS0, SPI_MOSI, SPI_MISO, SPI_CLK);
+// Adafruit_MAX31865 pt_1 = Adafruit_MAX31865(CS1, SPI_MOSI, SPI_MISO, SPI_CLK);
+// Adafruit_MAX31865 pt_2 = Adafruit_MAX31865(CS2, SPI_MOSI, SPI_MISO, SPI_CLK);
+// bool activePT_0 = false, activePT_1 = false, activePT_2 = false;
+// #endif
 
 char mqtthost[maxHostSign]; // MQTT Server
 char mqttuser[maxUserSign];
@@ -163,7 +165,7 @@ int activePage = 0; // die aktuell angezeigte Seite
 int tempPage = -1;  // die aktuell angezeigte Seite
 InnuNex nextion(softSerial);
 
-int8_t PIN_BUZZER;
+int8_t PIN_BUZZER = -100;
 bool current_step = false;
 int stepsCounter = 0;
 char currentStepName[maxStepSign];     //= "no active step";
@@ -307,7 +309,7 @@ void setup()
     // Starte Sensoren
     DS18B20.begin();
     DS18B20.setWaitForConversion(false); // async mode
-    DS18B20.setCheckForConversion(false);
+    DS18B20.setCheckForConversion(true);
     pins_used[ONE_WIRE_BUS] = true;
     // Lade Konfiguration
     if (LittleFS.exists(CONFIG))
@@ -411,9 +413,10 @@ void setupServer()
   server.on("/rest/events/4", handleAll);
   server.on("/rest/events/5", handleAll);
 
-  server.serveStatic("/mqttdevice.min.css", LittleFS, "/mqttdevice.min.css", "public, max-age=86400");
-  server.serveStatic("/mqttdevice.min.js", LittleFS, "/mqttdevice.min.js", "public, max-age=86400");
-  server.serveStatic("/mqttfont.ttf", LittleFS, "/mqttfont.ttf", "public, max-age=86400");
+  // server.serveStatic("/mqttdevice.min.css", LittleFS, "/mqttdevice.min.css", "public, max-age=86400");
+  // server.serveStatic("/mqttdevice.min.js", LittleFS, "/mqttdevice.min.js", "public, max-age=86400");
+  // server.serveStatic("/mqttfont.ttf", LittleFS, "/mqttfont.ttf", "public, max-age=86400");
+  server.serveStatic("/lang.js", LittleFS, "/lang.js", "public, max-age=86400");
   server.serveStatic("/favicon.ico", LittleFS, "/favicon.ico", "public, max-age=86400");
   server.serveStatic("/de.json", LittleFS, "/de.json", "no-store, must-revalidate");
   server.serveStatic("/en.json", LittleFS, "/en.json", "no-store, must-revalidate");

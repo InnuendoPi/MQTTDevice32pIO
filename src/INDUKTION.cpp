@@ -532,7 +532,6 @@ void handleSetIndu()
     replyServerError("Server error set induction");
     return;
   }
-  Serial.println(server.arg(0));
   inductionCooker.change(StringToPin(doc["pinw"]), StringToPin(doc["piny"]), StringToPin(doc["pinb"]), doc["topic"], doc["enabled"], doc["pl"]);
   server.send(200);
   saveConfig();
