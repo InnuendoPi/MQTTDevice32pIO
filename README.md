@@ -34,12 +34,18 @@ MQTTDevice32 ist ein Arduino Sketch für den Wemos ESP8266 D1 mini und den ESP32
 * Dateiexplorer
 * Unterstützung für versch. Sprachen
 
+## 💿 Download
+
+Empfohlen wird der ESP32 D1 Mini NodeMCU mit der Firmware MQTTDevice32pIO (ESP-IDF5 5.4).
+
+[![ESP32pIO](https://img.shields.io/static/v1?label=Download%20MQTTDevice32pIO&message=ESP32pIO&logo=arduino&logoColor=white&color=blue)](https://github.com/InnuendoPi/MQTTDevice32pIO/raw/refs/heads/main/MQTTDevice32pIO.zip) [![ESP32](https://img.shields.io/static/v1?label=Download%20MQTTDevice32&message=ESP32&logo=arduino&logoColor=white&color=red)](https://github.com/InnuendoPi/MQTTDevice32/raw/refs/heads/main/MQTTDevice32.zip) [![ESP8266](https://img.shields.io/static/v1?label=Download%20MQTTDevice&message=ESP8266&logo=arduino&logoColor=white&color=green)](https://github.com/InnuendoPi/MQTTDevice32pIO/raw/refs/heads/main/MQTTDevice.zip)
+
 ## 💻 Installation
 
 * Firmware.zip entpacken
 * Doppelklick auf Flashen.cmd
 
-Das Script flashen.cmd verwendet [esptool](https://github.com/espressif/esptool) (im ZIP Archiv enthalten).
+Das Script Flashen.cmd verwendet [esptool](https://github.com/espressif/esptool) (im ZIP Archiv enthalten).
 
 ## 📚 Anleitung und Dokumentation
 

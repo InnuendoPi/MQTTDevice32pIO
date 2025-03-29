@@ -42,9 +42,9 @@
 
 // Version
 #ifdef ESP_IDF5
-#define Version "4.71.2 pIO"
+#define Version "4.72 pIO"
 #else
-#define Version "4.71.2"
+#define Version "4.72"
 #endif
 
 // Watchdog
